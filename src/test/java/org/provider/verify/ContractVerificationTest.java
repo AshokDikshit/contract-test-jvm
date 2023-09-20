@@ -15,10 +15,10 @@ import au.com.dius.pact.provider.junitsupport.loader.PactBrokerAuth;
 import au.com.dius.pact.provider.junitsupport.loader.PactFolder;
 
 @Provider("ReqResInUsersAPI")
-//@PactBroker(url = "http://localhost:9292"
+@PactBroker(url = "http://localhost:9292"
 ////        ,authentication = @PactBrokerAuth(username = "pact_workshop", password = "pact_workshop")
-//)
-@PactFolder(value = "target/pacts")
+)
+//@PactFolder(value = "target/pacts")
 public class ContractVerificationTest {
 
 	@BeforeEach
