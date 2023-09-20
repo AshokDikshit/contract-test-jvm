@@ -25,26 +25,26 @@ public class UsersTestSceanrios {
 	public UsersInteractions usersInteractions = new UsersInteractions();
 	
 	@Pact(consumer = "TestUsersAPI")
-	public RequestResponsePact getAllUsers(PactDslWithProvider builder) {
-		return usersInteractions.allUsers(builder);
-	}
-	
-	@Pact(consumer = "TestUsersAPI")
 	public RequestResponsePact getSingleUsers(PactDslWithProvider builder) {
 		return usersInteractions.singleUsers(builder);
 	}
 	
-	@Test
-	@PactTestFor(pactMethod = "getAllUsers", pactVersion = PactSpecVersion.V3)
-	void testPactAll(MockServer mockServer, MockServer mockServer2) throws IOException {
-		HttpResponse httpResponse = Request.get(mockServer.getUrl() + "/api/users").execute().returnResponse();
-		assertEquals(httpResponse.getCode(), 200);
+	@Pact(consumer = "TestUsersAPI")
+	public RequestResponsePact getAllUsers(PactDslWithProvider builder) {
+		return usersInteractions.allUsers(builder);
 	}
 	
 	@Test
 	@PactTestFor(pactMethod = "getSingleUsers", pactVersion = PactSpecVersion.V3)
 	void testPactSingle(MockServer mockServer) throws IOException {
 		HttpResponse httpResponse = Request.get(mockServer.getUrl() + "/api/users/2").execute().returnResponse();
+		assertEquals(httpResponse.getCode(), 200);
+	}
+	
+	@Test
+	@PactTestFor(pactMethod = "getAllUsers", pactVersion = PactSpecVersion.V3)
+	void testPactAll(MockServer mockServer, MockServer mockServer2) throws IOException {
+		HttpResponse httpResponse = Request.get(mockServer.getUrl() + "/api/users").execute().returnResponse();
 		assertEquals(httpResponse.getCode(), 200);
 	}
 	
