@@ -1,56 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>provider-test</groupId>
-	<artifactId>provider-test</artifactId>
+
+	<groupId>contract-test</groupId>
+	<artifactId>contract-test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+	<name>contract-test</name>
+	<!-- FIXME change it to the project's website -->
+	<url>http://www.example.com</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+	</properties>
+
 	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/au.com.dius.pact.consumer/junit5 -->
+		<dependency>
+			<groupId>au.com.dius.pact.consumer</groupId>
+			<artifactId>junit5</artifactId>
+			<version>4.6.2</version>
+		</dependency>
+
 		<!--
-		https://mvnrepository.com/artifact/au.com.dius.pact.provider/junit5spring 
+		https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<version>3.1.3</version>
+		</dependency>
+
+		<!--
+		This dependecy is just for the provider verify along with spring annotation use
 		<dependency>
 			<groupId>au.com.dius.pact.provider</groupId>
 			<artifactId>junit5spring</artifactId>
 			<version>4.6.0</version>
 		</dependency>
-
-		https://mvnrepository.com/artifact/au.com.dius.pact.provider/junit5 
-		This dependecy can also be use, keeping for reference.-->
+		-->
+		
+		<!-- https://mvnrepository.com/artifact/au.com.dius.pact.provider/junit5 -->
 		<dependency>
 			<groupId>au.com.dius.pact.provider</groupId>
 			<artifactId>junit5</artifactId>
-			<version>4.6.0</version>
+			<version>4.6.2</version>
 		</dependency>
-		
+
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.4</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.9.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.9.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven
 			defaults (may be moved to parent pom) -->
 			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>3.1.2</version>
-					<configuration>
-						<systemPropertyVariables>
-							<pact.verifier.publishResults>true</pact.verifier.publishResults>
-						</systemPropertyVariables>
-						<systemProperties>
-							<property>
-								<name>pact.verifier.publishResults</name>
-								<value>true</value>
-							</property>
-						</systemProperties>
-					</configuration>
-				</plugin>
+
 				<plugin>
 					<groupId>au.com.dius.pact.provider</groupId>
 					<artifactId>maven</artifactId>
 					<version>4.1.0</version>
 					<configuration>
-						<pactDirectory>target/pacts/</pactDirectory> <!--
+						<pactDirectory>target/pacts</pactDirectory> <!--
 						Defaults to ${project.build.directory}/pacts -->
 						<pactBrokerUrl>http://localhost:9292/</pactBrokerUrl>
 						<projectVersion>${git.shorthash}</projectVersion> <!--
@@ -64,14 +98,26 @@
 							<!-- You can define as many as you need, but each
 							must have a unique name -->
 							<serviceProvider>
-								<name>ReqResInUsersAPI</name>
+								<name>ReqresInUsers</name>
 								<!-- All the provider properties are optional,
 								and have sensible defaults (shown below) -->
-								<protocol>https</protocol>
-								<host>reqres.in</host>
-								<port>443</port>
+								<protocol>http</protocol>
+								<host>localhost</host>
+								<port>9292</port>
 								<path>/</path>
-
+								<consumers>
+									<!-- Again, you can define as many consumers
+									for each provider as you need, but each must
+									have a unique name -->
+									<consumer>
+										<name>DemoTestUsers</name>
+										<!--  currently supports a file path
+										using pactSource or a URL using pactUrl -->
+										<pactSource>
+											contract-test-mvn/target/pacts
+										</pactSource>
+									</consumer>
+								</consumers>
 							</serviceProvider>
 						</serviceProviders>
 					</configuration>

@@ -1,4 +1,4 @@
-package org.provider.verification;
+package org.provider.verify;
 
 
 import org.junit.jupiter.api.BeforeEach;
