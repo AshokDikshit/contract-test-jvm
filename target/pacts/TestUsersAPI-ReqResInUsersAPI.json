@@ -1,0 +1,289 @@
+{
+  "consumer": {
+    "name": "TestUsersAPI"
+  },
+  "interactions": [
+    {
+      "description": "get all users",
+      "request": {
+        "method": "GET",
+        "path": "/api/users"
+      },
+      "response": {
+        "body": {
+          "data": [
+            {
+              "avatar": "string",
+              "email": "string",
+              "first_name": "string",
+              "id": 100,
+              "last_name": "string"
+            }
+          ],
+          "page": 100,
+          "per_page": 100,
+          "total": 100,
+          "total_pages": 100
+        },
+        "generators": {
+          "body": {
+            "$.data[*].avatar": {
+              "size": 20,
+              "type": "RandomString"
+            },
+            "$.data[*].email": {
+              "size": 20,
+              "type": "RandomString"
+            },
+            "$.data[*].first_name": {
+              "size": 20,
+              "type": "RandomString"
+            },
+            "$.data[*].id": {
+              "max": 2147483647,
+              "min": 0,
+              "type": "RandomInt"
+            },
+            "$.data[*].last_name": {
+              "size": 20,
+              "type": "RandomString"
+            },
+            "$.page": {
+              "max": 2147483647,
+              "min": 0,
+              "type": "RandomInt"
+            },
+            "$.per_page": {
+              "max": 2147483647,
+              "min": 0,
+              "type": "RandomInt"
+            },
+            "$.total": {
+              "max": 2147483647,
+              "min": 0,
+              "type": "RandomInt"
+            },
+            "$.total_pages": {
+              "max": 2147483647,
+              "min": 0,
+              "type": "RandomInt"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "matchingRules": {
+          "body": {
+            "$.data": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.data[*].avatar": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.data[*].email": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.data[*].first_name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.data[*].id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.data[*].last_name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.per_page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.total": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.total_pages": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "get single user",
+      "request": {
+        "method": "GET",
+        "path": "/api/users/2"
+      },
+      "response": {
+        "body": {
+          "data": {
+            "avatar": "string",
+            "email": "string",
+            "first_name": "string",
+            "id": 100,
+            "last_name": "string"
+          }
+        },
+        "generators": {
+          "body": {
+            "$.data.avatar": {
+              "size": 20,
+              "type": "RandomString"
+            },
+            "$.data.email": {
+              "size": 20,
+              "type": "RandomString"
+            },
+            "$.data.first_name": {
+              "size": 20,
+              "type": "RandomString"
+            },
+            "$.data.id": {
+              "max": 2147483647,
+              "min": 0,
+              "type": "RandomInt"
+            },
+            "$.data.last_name": {
+              "size": 20,
+              "type": "RandomString"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "matchingRules": {
+          "body": {
+            "$.data.avatar": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.data.email": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.data.first_name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.data.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.data.last_name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      }
+    }
+  ],
+  "metadata": {
+    "pact-jvm": {
+      "version": "4.6.2"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "ReqResInUsersAPI"
+  }
+}
